@@ -1,14 +1,12 @@
-import React from "react";
+import { Button } from "@heroui/react";
 
-const InventoryBtn = ({ className, BtnTxt, onBtnPress }) => {
-  return (
-    <button
-      className={`text-sm font-medium ${className}`}
-      onClick={onBtnPress}
-    >
-      {BtnTxt}
-    </button>
-  );
-};
-
-export default InventoryBtn;
+export default function InventoryBtn({
+  className,
+  btnTxt,
+  onBtnClick
+}) {
+  return <Button
+    className={`${className}`}
+    onPress={onBtnClick}
+  >{btnTxt}</Button>;
+}
