@@ -5,45 +5,30 @@ import DashboardTopNav from "@/app/components/DashboardTopNav";
 import React, { useState } from "react";
 
 const Layout = ({ children }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true); // Sidebar collapsed by default on desktop
 
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+    setIsCollapsed(!isCollapsed);
   };
 
   return (
-    <div className="flex h-screen">
-
+    <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
+      <DashboardSideNav isCollapsed={isCollapsed} toggleSidebar={toggleSidebar} />
 
+      {/* Main Content */}
       <div
-        className={`fixed inset-y-0 left-0 z-30 w-max border-r shadow-md transform bg-white text-black ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } md:translate-x-0 transition-transform duration-300 ease-in-out  md:static md:shadow-none`}
+        className={`flex-1 transition-all duration-300 ${
+          isCollapsed ? "md:ml-16" : "md:ml-44"
+        } w-full`}
       >
-        <DashboardSideNav className="flex flex-col h-full p-4" />
-      </div>
-
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col">
-        {/* Top Bar */}
-        <div className="fixed top-0 left-0 right-0 z-20 shadow-md md:static md:shadow-none bg-white text-black">
-          <DashboardTopNav toggleSidebar={toggleSidebar} />
+        {/* Top Navigation */}
+        <div className="sticky top-0 z-20">
+          <DashboardTopNav />
         </div>
-
-        {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto p-6 mt-16 md:mt-0 bg-white text-black">
-          {children}
-        </div>
+        {/* Child Content */}
+        <main className="p-4 md:p-6">{children}</main>
       </div>
-
-      {/* Overlay for mobile sidebar */}
-      {isSidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-20 md:hidden"
-          onClick={toggleSidebar}
-        ></div>
-      )}
     </div>
   );
 };
