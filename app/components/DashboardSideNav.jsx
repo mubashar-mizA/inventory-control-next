@@ -1,59 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
-import { ChevronLeft, User, Gauge, BarChart, File, LogOut } from "lucide-react";
+import React, { useState } from "react"
 
-const InventoryLink = ({ linkTxt, linkUrl, className, icon, isCollapsed, isMobileOpen }) => (
-  <a
-    href={linkUrl}
-    className={`flex items-center gap-3 p-3 rounded-lg hover:bg-gray-700 transition-colors ${className}`}
-    aria-label={linkTxt}
-  >
-    {icon}
-    {(!isCollapsed || isMobileOpen) && <span className="text-gray-200">{linkTxt}</span>}
-  </a>
-);
+import { ChevronLeft, User, Gauge, BarChart, File, LogOut, CreditCard, PlusCircle, Edit, List } from "lucide-react";
 
-const InventoryBtn = ({ onClick, className, children }) => (
-  <button
-    onClick={onClick}
-    className={`flex items-center gap-3 p-3 rounded-lg hover:bg-gray-700 transition-colors ${className}`}
-  >
-    {children}
-  </button>
-);
+import InventoryBtn from "./InventoryBtn";
 
-const MyAccordian = ({ mainTitle, items, isCollapsed, icon, isMobileOpen }) => {
-  const [isOpen, setIsOpen] = useState(false);
+import InventoryLink from "./InventoryLink";
 
-  return (
-    <div className="w-full">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-3 p-3 w-full rounded-lg hover:bg-gray-700 transition-colors"
-        aria-expanded={isOpen}
-        aria-label={`Toggle ${mainTitle} accordion`}
-      >
-        {icon}
-        {(!isCollapsed || isMobileOpen) && <span className="text-gray-200">{mainTitle}</span>}
-      </button>
-      {(!isCollapsed || isMobileOpen) && isOpen && (
-        <div className="pl-8 py-2">
-          {items.map((item, index) => (
-            <div
-              key={index}
-              className="p-2 text-gray-300 hover:bg-gray-600 rounded-md text-sm"
-            >
-              {item}
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
+import MyAccordion from "./MyAccordian";
 
 const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
+
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const handleLogout = () => {
@@ -66,7 +24,9 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
 
   return (
     <>
+
       {/* Mobile Toggle Button */}
+
       <button
         onClick={toggleMobileSidebar}
         className="md:hidden fixed top-4 right-4 z-50 p-2 bg-gray-800 text-white rounded-lg"
@@ -79,109 +39,139 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
       </button>
 
       {/* Sidebar */}
+
       <div
         className={`
           ${className}
-          bg-gray-800 text-white
-          h-screen
+           bg-white
+          h-screen border-r 
           transition-all duration-300
           fixed top-0 left-0
           z-40 
           ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}
           md:translate-x-0
-          ${isCollapsed ? "w-16" : "w-44"}
+          ${isCollapsed ? "w-28" : "w-56"}
           flex flex-col
-          overflow-y-auto
         `}
       >
+
         {/* Header */}
-        <div className="flex items-center justify-between p-4">
-          {(!isCollapsed || isMobileOpen) && (
-            <h2 className="text-gray-300 font-bold text-lg">Overview</h2>
-          )}
-          <button
-            onClick={toggleSidebar}
-            className="p-2 rounded-full hover:bg-gray-700 focus:outline-none hidden md:block"
+
+        {/* Toggler  (---status . ok---) */}
+        <div className="absolute bottom-10  -right-[17px]  w-max ">
+          <InventoryBtn
+            className="border  p-2 rounded-full bg-gray-500 text-white"
+            onBtnClick={toggleSidebar}
+            btnTxt={<ChevronLeft className={`transition-transform duration-300 ${isCollapsed ? "rotate-180" : ""}`} size={18} />}
             aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-          >
-            <ChevronLeft
-              className={`text-gray-300 transition-transform duration-300 ${isCollapsed ? "rotate-180" : ""
-                }`}
-              size={24}
-            />
-          </button>
+          />
+
         </div>
 
         {/* Navigation */}
-        <nav className="flex flex-col flex-1 gap-0 sm:gap-1 px-0 sm:px-3 mt-4">
-          <InventoryLink
-            linkTxt="Profile"
-            linkUrl="/pages/dashboard/profile"
-            className="text-gray-200"
-            icon={<User size={20} className="text-gray-200 " />}
-            isCollapsed={isCollapsed}
-            isMobileOpen={isMobileOpen}
-          />
-          <InventoryLink
-            linkTxt="Dashboard"
-            linkUrl="/pages/dashboard"
-            className="text-gray-200"
-            icon={<Gauge size={20} className="text-gray-200" />}
-            isCollapsed={isCollapsed}
-            isMobileOpen={isMobileOpen}
-          />
-          <InventoryLink
-            linkTxt="Analytics"
-            linkUrl="/pages/dashboard"
-            className="text-gray-200"
-            icon={<BarChart size={20} className="text-gray-200" />}
-            isCollapsed={isCollapsed}
-            isMobileOpen={isMobileOpen}
-          />
-          <InventoryLink
-            linkTxt="File"
-            linkUrl="/pages/dashboard"
-            className="text-gray-200"
-            icon={<File size={20} className="text-gray-200" />}
-            isCollapsed={isCollapsed}
-            isMobileOpen={isMobileOpen}
-          />
 
-          <MyAccordian
-            mainTitle="User"
-            items={["Profile", "Cards", "Create", "Edit"]}
-            isCollapsed={isCollapsed}
-            icon={<User size={20} className="text-gray-200" />}
-            isMobileOpen={isMobileOpen}
-          />
-          <MyAccordian
-            mainTitle="Invoice"
-            items={["Profile", "Cards", "Create", "Edit"]}
-            isCollapsed={isCollapsed}
-            icon={<File size={20} className="text-gray-200" />}
-            isMobileOpen={isMobileOpen}
-          />
+        <nav
+          className={`${isCollapsed ? 'items-center' : ''} 
+          flex flex-col flex-1  px-0 sm:px-3 mt-10 text-black`
+          }
+        >
+
+          {isCollapsed ? '' : <h2 className="px-0 sm:px-3 text-gray-400 font-bold">Overview</h2>}
+
+          <div className="ml-3 py-2">
+            <InventoryLink
+              linkTxt="Dashboard"
+              linkUrl="/pages/dashboard"
+              className=""
+              icon={<Gauge size={30} className="" />}
+              isCollapsed={isCollapsed}
+              isMobileOpen={isMobileOpen}
+
+            />
+          </div>
+
+          <div className="ml-3 py-2">
+            <InventoryLink
+              linkTxt="Analytics"
+              linkUrl="/pages/analytics"
+              className=""
+              icon={<BarChart size={30} className="" />}
+              isCollapsed={isCollapsed}
+              isMobileOpen={isMobileOpen}
+            />
+          </div>
+
+          {isCollapsed ? '' : <h2 className="px-0 sm:px-3 text-gray-400 font-bold py-2">Management</h2>}
+
+          <div className="ml-3 py-2">
+            <InventoryLink
+              linkTxt="File"
+              linkUrl="/pages/files"
+              className=""
+              icon={<File size={35} className="" />}
+              isCollapsed={isCollapsed}
+              isMobileOpen={isMobileOpen}
+            />
+          </div>
+
+          <div className="ml-3 py-2">
+            <MyAccordion
+              mainTitle="User"
+              isCollapsed={isCollapsed}
+              icon={<User size={30} className="" />}
+              isMobileOpen={isMobileOpen}
+              items={[
+                { name: "Profile", link: "/user/profile", icon: <User size={16} /> },
+                { name: "Cards", link: "/user/cards", icon: <CreditCard size={16} /> },
+                { name: "Create", link: "/user/create", icon: <PlusCircle size={16} /> },
+                { name: "Edit", link: "/user/edit", icon: <Edit size={16} /> },
+              ]}
+            />
+          </div>
+
+          <div className="ml-3 py-2">
+            <MyAccordion
+              mainTitle="Invoice"
+              isCollapsed={isCollapsed}
+              icon={<File size={30} className="" />}
+              isMobileOpen={isMobileOpen}
+              items={[
+                { name: "List", link: "/invoice/list", icon: <List size={16} /> },
+                { name: "Details", link: "/invoice/details", icon: <File size={16} /> },
+                { name: "Create", link: "/invoice/create", icon: <PlusCircle size={16} /> },
+                { name: "Edit", link: "/invoice/edit", icon: <Edit size={16} /> },
+              ]}
+            />
+          </div>
+
+          {/* Logout Button */}
+
+          <div className="">
+            <InventoryBtn
+              onClick={handleLogout}
+              className="w-full "
+            >
+              <LogOut size={20} className="" />
+              {(!isCollapsed || isMobileOpen) && <span>Logout</span>}
+            </InventoryBtn>
+          </div>
+
         </nav>
 
-        {/* Logout Button */}
-        <div className="p-3">
-          <InventoryBtn
-            onClick={handleLogout}
-            className="w-full text-gray-200"
-          >
-            <LogOut size={20} className="text-gray-200" />
-            {(!isCollapsed || isMobileOpen) && <span>Logout</span>}
-          </InventoryBtn>
-        </div>
-      </div>
+
+
+      </div >
 
       {/* Mobile Overlay */}
-      {isMobileOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
-          onClick={toggleMobileSidebar}
-        />
-      )}
+      {
+        isMobileOpen && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
+            onClick={toggleMobileSidebar}
+          />
+        )
+      }
+
     </>
   );
 };
