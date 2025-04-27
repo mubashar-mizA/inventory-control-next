@@ -2,6 +2,7 @@
 
 import DashboardSideNav from "@/app/components/DashboardSideNav";
 import DashboardTopNav from "@/app/components/DashboardTopNav";
+
 import React, { useState } from "react";
 
 const Layout = ({ children }) => {
@@ -42,9 +43,10 @@ const Layout = ({ children }) => {
         </div>
 
         {/* Child Content */}
+          
 
         <main
-          className="p-4 md:p-6 mt-8"
+          className=" p-4 md:mt-20 bg-gray-100"
         >
           {children}
         </main>
