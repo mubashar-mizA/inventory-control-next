@@ -2,7 +2,7 @@ import React from "react";
 
 const Page = () => {
   return (
-    <div className="mt-10">
+    <div className="">
       <h1 className="text-2xl font-bold">Dashboard</h1>
       <p>
         Welcome to your dashboard. Here you can view your profile, manage your
