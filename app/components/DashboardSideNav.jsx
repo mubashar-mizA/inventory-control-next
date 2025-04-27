@@ -93,7 +93,7 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
           <div className="ml-3 py-2">
             <InventoryLink
               linkTxt="Analytics"
-              linkUrl="/pages/analytics"
+              linkUrl="/pages/dashboard/analytics"
               className=""
               icon={<BarChart size={30} className="" />}
               isCollapsed={isCollapsed}
@@ -106,7 +106,7 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
           <div className="ml-3 py-2">
             <InventoryLink
               linkTxt="File"
-              linkUrl="/pages/files"
+              linkUrl="/pages/dashboard/file"
               className=""
               icon={<File size={35} className="" />}
               isCollapsed={isCollapsed}
@@ -120,12 +120,14 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
               isCollapsed={isCollapsed}
               icon={<User size={30} className="" />}
               isMobileOpen={isMobileOpen}
+
               items={[
-                { name: "Profile", link: "/user/profile", icon: <User size={16} /> },
-                { name: "Cards", link: "/user/cards", icon: <CreditCard size={16} /> },
-                { name: "Create", link: "/user/create", icon: <PlusCircle size={16} /> },
-                { name: "Edit", link: "/user/edit", icon: <Edit size={16} /> },
+                { name: "Profile", link: "/pages/dashboard/users/profile", icon: <User size={16} /> },
+                { name: "Cards", link: "/pages/dashboard/users/cards", icon: <CreditCard size={16} /> },
+                { name: "Create", link: "/pages/dashboard/users/create", icon: <PlusCircle size={16} /> },
+                { name: "Edit", link: "/pages/dashboard/users/edit", icon: <Edit size={16} /> },
               ]}
+              
             />
           </div>
 
