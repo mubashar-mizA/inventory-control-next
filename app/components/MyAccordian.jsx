@@ -16,6 +16,8 @@ export default function MyAccordion({
     setIsOpen(!isOpen);
   };
 
+  
+
   return (
     <div>
       <button
