@@ -83,7 +83,7 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
               linkTxt="Dashboard"
               linkUrl="/pages/dashboard"
               className=""
-              icon={<Gauge size={30} className="" />}
+              icon={<Gauge size={25} className="" />}
               isCollapsed={isCollapsed}
               isMobileOpen={isMobileOpen}
 
@@ -95,7 +95,7 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
               linkTxt="Analytics"
               linkUrl="/pages/dashboard/analytics"
               className=""
-              icon={<BarChart size={30} className="" />}
+              icon={<BarChart size={25} className="" />}
               isCollapsed={isCollapsed}
               isMobileOpen={isMobileOpen}
             />
@@ -108,7 +108,7 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
               linkTxt="File"
               linkUrl="/pages/dashboard/file"
               className=""
-              icon={<File size={35} className="" />}
+              icon={<File size={25} className="" />}
               isCollapsed={isCollapsed}
               isMobileOpen={isMobileOpen}
             />
@@ -118,7 +118,7 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
             <MyAccordion
               mainTitle="User"
               isCollapsed={isCollapsed}
-              icon={<User size={30} className="" />}
+              icon={<User size={25} className="" />}
               isMobileOpen={isMobileOpen}
 
               items={[
@@ -127,7 +127,7 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
                 { name: "Create", link: "/pages/dashboard/users/create", icon: <PlusCircle size={16} /> },
                 { name: "Edit", link: "/pages/dashboard/users/edit", icon: <Edit size={16} /> },
               ]}
-              
+
             />
           </div>
 
@@ -135,13 +135,13 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
             <MyAccordion
               mainTitle="Invoice"
               isCollapsed={isCollapsed}
-              icon={<File size={30} className="" />}
+              icon={<File size={25} className="" />}
               isMobileOpen={isMobileOpen}
               items={[
-                { name: "List", link: "/invoice/list", icon: <List size={16} /> },
-                { name: "Details", link: "/invoice/details", icon: <File size={16} /> },
-                { name: "Create", link: "/invoice/create", icon: <PlusCircle size={16} /> },
-                { name: "Edit", link: "/invoice/edit", icon: <Edit size={16} /> },
+                { name: "List", link: "/pages/dashboard/invoices/list", icon: <List size={16} /> },
+                { name: "Details", link: "/pages/dashboard/invoices/detail", icon: <File size={16} /> },
+                { name: "Create", link: "/pages/dashboard/invoices/create", icon: <PlusCircle size={16} /> },
+                { name: "Edit", link: "/pages/dashboard/invoices/edit", icon: <Edit size={16} /> },
               ]}
             />
           </div>
