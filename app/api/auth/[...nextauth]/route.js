@@ -13,7 +13,10 @@ export const authOptions = {
     }),
     CredentialsProvider({
       name: "credentials",
-      credentials: {},
+      credentials: {
+        email: { label: "Email", type: "email" }, // ✅ Optional: for clarity
+        password: { label: "Password", type: "password" },
+      },
       async authorize(credentials) {
         try {
           await CONNECT_DB();
@@ -40,11 +43,28 @@ export const authOptions = {
   ],
   session: {
     strategy: "jwt",
+    maxAge: 24 * 60 * 60,
   },
   secret: process.env.NEXTAUTH_SECRET,
+  pages: {
+    signIn: "/auth/signin", // ❌ WAS EMPTY: Fixed to point to your custom signin route
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id || user._id; // ✅ FIXED: previously was assigning to itself
+        token.userName = user.name; // ❌ WAS: token.userName = token.userName;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.user.id = token.id;
+      session.user.userName = token.userName;
+      return session;
+    },
+  },
 };
 
-// App Router: Export NextAuth handler for GET and POST
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
