@@ -20,7 +20,11 @@ import InventoryLink from "./InventoryLink";
 import MyAccordion from "./MyAccordian";
 
 const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
+
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+  const [isSigningOut, setIsSigningOut] = useState(false);
+
 
   const toggleMobileSidebar = () => {
     setIsMobileOpen(!isMobileOpen);
@@ -179,13 +183,20 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
           {/* Sign Out */}
           <div className="ml-3 mt-auto py-4">
             <button
-              onClick={() => signOut({ callbackUrl: "/pages/login" })}
+              onClick={() => {
+                setIsSigningOut(true);
+                setTimeout(() => {
+                  signOut({ callbackUrl: "/pages/login" });
+                }, 4000);
+              }}
               className="flex items-center gap-3 text-red-700 hover:text-red-800"
+              disabled={isSigningOut}
             >
               <LogOut size={22} />
               {!isCollapsed && <span>Sign Out</span>}
             </button>
           </div>
+
         </nav>
       </div>
 
@@ -196,6 +207,17 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
           onClick={toggleMobileSidebar}
         />
       )}
+      {isSigningOut && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white bg-opacity-80 backdrop-blur-sm">
+          <div className="text-xl font-semibold text-gray-800 animate-pulse flex flex-col gap-4 items-center">
+            <p>Please wait while we log you out</p>
+            <p>
+              Logging you out...
+            </p>
+          </div>
+        </div>
+      )}
+
     </>
   );
 };
