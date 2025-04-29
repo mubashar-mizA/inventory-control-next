@@ -6,7 +6,7 @@ export default function Home() {
 
     <div>
       <h1>Landing page</h1>
-      <InventoryLink linkTxt={'Dashboard'} linkUrl={'/pages/dashboard'} />
+      <InventoryLink linkTxt={'Get started'} linkUrl={'/pages/login'} />
     </div>
   );
 
