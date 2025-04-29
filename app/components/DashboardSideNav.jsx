@@ -1,22 +1,26 @@
 "use client";
 
-import React, { useState } from "react"
-
-import { ChevronLeft, User, Gauge, BarChart, File, LogOut, CreditCard, PlusCircle, Edit, List } from "lucide-react";
+import React, { useState } from "react";
+import {
+  ChevronLeft,
+  User,
+  Gauge,
+  BarChart,
+  File,
+  LogOut,
+  CreditCard,
+  PlusCircle,
+  Edit,
+  List,
+} from "lucide-react";
+import { signOut } from "next-auth/react";
 
 import InventoryBtn from "./InventoryBtn";
-
 import InventoryLink from "./InventoryLink";
-
 import MyAccordion from "./MyAccordian";
 
 const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
-
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-
-  const handleLogout = () => {
-    console.log("Logout button clicked");
-  };
 
   const toggleMobileSidebar = () => {
     setIsMobileOpen(!isMobileOpen);
@@ -24,9 +28,7 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
 
   return (
     <>
-
       {/* Mobile Toggle Button */}
-
       <button
         onClick={toggleMobileSidebar}
         className="md:hidden fixed top-4 right-4 z-50 p-2 bg-gray-800 text-white rounded-lg"
@@ -39,11 +41,10 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
       </button>
 
       {/* Sidebar */}
-
       <div
         className={`
           ${className}
-           bg-white
+          bg-white
           h-screen border-r 
           transition-all duration-300
           fixed top-0 left-0
@@ -54,39 +55,38 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
           flex flex-col
         `}
       >
-
-        {/* Header */}
-
-        {/* Toggler  (---status . ok---) */}
-        <div className="absolute bottom-10  -right-[17px]  w-max ">
+        {/* Sidebar Toggle Button */}
+        <div className="absolute bottom-10 -right-[17px] w-max">
           <InventoryBtn
-            className="border  p-2 rounded-full bg-gray-500 text-white"
+            className="border p-2 rounded-full bg-gray-500 text-white"
             onBtnClick={toggleSidebar}
-            btnTxt={<ChevronLeft className={`transition-transform duration-300 ${isCollapsed ? "rotate-180" : ""}`} size={18} />}
+            btnTxt={
+              <ChevronLeft
+                className={`transition-transform duration-300 ${isCollapsed ? "rotate-180" : ""
+                  }`}
+                size={18}
+              />
+            }
             aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
           />
-
         </div>
 
         {/* Navigation */}
-
         <nav
-          className={`${isCollapsed ? 'items-center' : ''} 
-          flex flex-col flex-1  px-0 sm:px-3 mt-10 text-black`
-          }
+          className={`${isCollapsed ? "items-center" : ""
+            } flex flex-col flex-1 px-0 sm:px-3 mt-10 text-black`}
         >
-
-          {isCollapsed ? '' : <h2 className="px-0 sm:px-3 text-gray-400 font-bold">Overview</h2>}
+          {!isCollapsed && (
+            <h2 className="px-3 text-gray-400 font-bold">Overview</h2>
+          )}
 
           <div className="ml-3 py-2">
             <InventoryLink
               linkTxt="Dashboard"
               linkUrl="/pages/dashboard"
-              className=""
-              icon={<Gauge size={25} className="" />}
+              icon={<Gauge size={25} />}
               isCollapsed={isCollapsed}
               isMobileOpen={isMobileOpen}
-
             />
           </div>
 
@@ -94,21 +94,21 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
             <InventoryLink
               linkTxt="Analytics"
               linkUrl="/pages/dashboard/analytics"
-              className=""
-              icon={<BarChart size={25} className="" />}
+              icon={<BarChart size={25} />}
               isCollapsed={isCollapsed}
               isMobileOpen={isMobileOpen}
             />
           </div>
 
-          {isCollapsed ? '' : <h2 className="px-0 sm:px-3 text-gray-400 font-bold py-2">Management</h2>}
+          {!isCollapsed && (
+            <h2 className="px-3 text-gray-400 font-bold py-2">Management</h2>
+          )}
 
           <div className="ml-3 py-2">
             <InventoryLink
               linkTxt="File"
               linkUrl="/pages/dashboard/file"
-              className=""
-              icon={<File size={25} className="" />}
+              icon={<File size={25} />}
               isCollapsed={isCollapsed}
               isMobileOpen={isMobileOpen}
             />
@@ -117,63 +117,85 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
           <div className="ml-3 py-2">
             <MyAccordion
               mainTitle="User"
+              icon={<User size={25} />}
               isCollapsed={isCollapsed}
-              icon={<User size={25} className="" />}
               isMobileOpen={isMobileOpen}
-
               items={[
-                { name: "Profile", link: "/pages/dashboard/users/profile", icon: <User size={16} /> },
-                { name: "Cards", link: "/pages/dashboard/users/cards", icon: <CreditCard size={16} /> },
-                { name: "Create", link: "/pages/dashboard/users/create", icon: <PlusCircle size={16} /> },
-                { name: "Edit", link: "/pages/dashboard/users/edit", icon: <Edit size={16} /> },
+                {
+                  name: "Profile",
+                  link: "/pages/dashboard/users/profile",
+                  icon: <User size={16} />,
+                },
+                {
+                  name: "Cards",
+                  link: "/pages/dashboard/users/cards",
+                  icon: <CreditCard size={16} />,
+                },
+                {
+                  name: "Create",
+                  link: "/pages/dashboard/users/create",
+                  icon: <PlusCircle size={16} />,
+                },
+                {
+                  name: "Edit",
+                  link: "/pages/dashboard/users/edit",
+                  icon: <Edit size={16} />,
+                },
               ]}
-
             />
           </div>
 
           <div className="ml-3 py-2">
             <MyAccordion
               mainTitle="Invoice"
+              icon={<File size={25} />}
               isCollapsed={isCollapsed}
-              icon={<File size={25} className="" />}
               isMobileOpen={isMobileOpen}
               items={[
-                { name: "List", link: "/pages/dashboard/invoices/list", icon: <List size={16} /> },
-                { name: "Details", link: "/pages/dashboard/invoices/detail", icon: <File size={16} /> },
-                { name: "Create", link: "/pages/dashboard/invoices/create", icon: <PlusCircle size={16} /> },
-                { name: "Edit", link: "/pages/dashboard/invoices/edit", icon: <Edit size={16} /> },
+                {
+                  name: "List",
+                  link: "/pages/dashboard/invoices/list",
+                  icon: <List size={16} />,
+                },
+                {
+                  name: "Details",
+                  link: "/pages/dashboard/invoices/detail",
+                  icon: <File size={16} />,
+                },
+                {
+                  name: "Create",
+                  link: "/pages/dashboard/invoices/create",
+                  icon: <PlusCircle size={16} />,
+                },
+                {
+                  name: "Edit",
+                  link: "/pages/dashboard/invoices/edit",
+                  icon: <Edit size={16} />,
+                },
               ]}
             />
           </div>
 
-          {/* Logout Button */}
-
-          <div className="">
-            <InventoryBtn
-              onClick={handleLogout}
-              className="w-full "
+          {/* Sign Out */}
+          <div className="ml-3 mt-auto py-4">
+            <button
+              onClick={() => signOut({ callbackUrl: "/pages/login" })}
+              className="flex items-center gap-3 text-red-600 hover:text-red-800"
             >
-              <LogOut size={20} className="" />
-              {(!isCollapsed || isMobileOpen) && <span>Logout</span>}
-            </InventoryBtn>
+              <LogOut size={22} />
+              {!isCollapsed && <span>Sign Out</span>}
+            </button>
           </div>
-
         </nav>
-
-
-
-      </div >
+      </div>
 
       {/* Mobile Overlay */}
-      {
-        isMobileOpen && (
-          <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
-            onClick={toggleMobileSidebar}
-          />
-        )
-      }
-
+      {isMobileOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
+          onClick={toggleMobileSidebar}
+        />
+      )}
     </>
   );
 };
