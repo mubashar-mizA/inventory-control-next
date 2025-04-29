@@ -180,7 +180,7 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
           <div className="ml-3 mt-auto py-4">
             <button
               onClick={() => signOut({ callbackUrl: "/pages/login" })}
-              className="flex items-center gap-3 text-red-600 hover:text-red-800"
+              className="flex items-center gap-3 text-red-700 hover:text-red-800"
             >
               <LogOut size={22} />
               {!isCollapsed && <span>Sign Out</span>}
