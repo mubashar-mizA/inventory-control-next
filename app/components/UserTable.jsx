@@ -12,6 +12,7 @@ import {
     Tooltip,
 } from "@heroui/react";
 
+import UserDrawer from "./UserDrawer";
 export const columns = [
     { name: "NAME", uid: "name" },
     { name: "ROLE", uid: "role" },
@@ -207,10 +208,10 @@ export default function App() {
             case "name":
                 return (
                     <User
-                        avatarProps={{ radius: "sm", src: user.avatar, style: { width: "32px", height: "32px" } }}
-
-                        description={user.email}
+                        avatarProps={{ radius: "sm", src: user.avatar, style: { width: "40px", height: "40px" } }}
+                        className=""
                         name={cellValue}
+                        description={user.email}
                     >
                         {user.email}
                     </User>
@@ -231,9 +232,10 @@ export default function App() {
             case "actions":
                 return (
                     <div className="relative flex items-center gap-2">
-                        <Tooltip content="Details">
-                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                        <Tooltip content="Details" >
+                            <span className="text-lg flex items-center gap-1 text-default-400 cursor-pointer active:opacity-50">
                                 <EyeIcon />
+                                <UserDrawer drawerName={"Detail"} />
                             </span>
                         </Tooltip>
                         <Tooltip content="Edit user">
@@ -254,18 +256,32 @@ export default function App() {
     }, []);
 
     return (
+
         <Table aria-label="Example table with custom cells">
-            <TableHeader columns={columns}>
+
+            <TableHeader
+                columns={columns}
+                className=""
+            >
                 {(column) => (
-                    <TableColumn key={column.uid} align={column.uid === "actions" ? "center" : "start"}>
+                    <TableColumn
+                        key={column.uid}
+                        align={column.uid === "actions" ? "center" : "start"}
+                        className="bg-blue-100 text-blue-700 font-semibold uppercase text-sm text-start py-2"
+                    >
                         {column.name}
                     </TableColumn>
                 )}
             </TableHeader>
             <TableBody items={users}>
                 {(item) => (
-                    <TableRow key={item.id}>
-                        {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+                    <TableRow
+                        key={item.id}
+                        className=""
+                    >
+                        {(columnKey) => <TableCell
+                            className=""
+                        >{renderCell(item, columnKey)}</TableCell>}
                     </TableRow>
                 )}
             </TableBody>
