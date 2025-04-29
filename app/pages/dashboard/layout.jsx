@@ -43,10 +43,10 @@ const Layout = ({ children }) => {
         </div>
 
         {/* Child Content */}
-          
+
 
         <main
-          className=" p-4 md:mt-20 bg-gray-100"
+          className=" p-4 md:mt-20"
         >
           {children}
         </main>
