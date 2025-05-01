@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 
 const DashboardTopNav = ({ toggleSidebar }) => {
   const { data } = useSession();
+  console.log('Data ====>*', data)
   let userName = (data?.user?.name)
   userName = userName?.toLocaleUpperCase()
 
