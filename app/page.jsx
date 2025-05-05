@@ -37,7 +37,7 @@ export default function LandingPage() {
             <div className="border flex items-center justify-center border-blue-600 animate-pulse transition bg-blue-600 text-white">
               <InventoryLink
                 linkTxt={'Get Started Now'}
-                linkUrl={'/pages/login'}
+                linkUrl={'/pages/register'}
                 className="hover:text-white rounded-lg px-6 py-3 font-semibold "
               />
             </div>
