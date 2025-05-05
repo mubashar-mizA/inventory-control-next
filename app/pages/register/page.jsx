@@ -105,7 +105,7 @@ export default function RegisterPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-gradient-to-b from-indigo-00 to-indigo-600 text-white font-bold py-2   transition"
+                        className="w-full bg-gradient-to-b from-indigo-00 to-indigo-600 text-black font-bold py-2   transition border"
                     >
                         {loading ? 'Registering...' : 'Sign Up'}
                     </button>
