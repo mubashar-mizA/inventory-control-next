@@ -6,7 +6,7 @@ const publicRoutes = [
   "/",
   "/pages/login",
   "/pages/register",
-  "pages/otp-verification",
+  "/pages/otp-verification",
 ];
 
 export const config = {
@@ -32,4 +32,5 @@ export async function middleware(req) {
   }
 
   return NextResponse.next();
+  
 }
