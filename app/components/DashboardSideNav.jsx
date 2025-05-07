@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+
 import {
   ChevronLeft,
   User,
@@ -11,12 +12,15 @@ import {
   CreditCard,
   PlusCircle,
   Edit,
-  List,
+  List, Menu, X
 } from "lucide-react";
+
 import { signOut } from "next-auth/react";
 
 import InventoryBtn from "./InventoryBtn";
+
 import InventoryLink from "./InventoryLink";
+
 import MyAccordion from "./MyAccordian";
 
 const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
@@ -24,7 +28,6 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const [isSigningOut, setIsSigningOut] = useState(false);
-
 
   const toggleMobileSidebar = () => {
     setIsMobileOpen(!isMobileOpen);
@@ -38,29 +41,17 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
         className="md:hidden fixed top-4 right-4 z-50 p-2 bg-gray-800 text-white rounded-lg"
         aria-label={isMobileOpen ? "Close sidebar" : "Open sidebar"}
       >
-        <ChevronLeft
-          className={`transition-transform ${isMobileOpen ? "rotate-180" : ""}`}
-          size={24}
-        />
+        {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
 
       {/* Sidebar */}
-      <div
-        className={`
-          ${className}
-          bg-white
-          h-screen border-r 
-          transition-all duration-300
-          fixed top-0 left-0
-          z-40 
-          ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}
-          md:translate-x-0
-          ${isCollapsed ? "w-28" : "w-56"}
-          flex flex-col
-        `}
+      <aside
+        className={`${className} h-screen bg-gray-100  border-r shadow-sm transition-all duration-300
+          fixed ease-in-out top-0 left-0 z-40 p-5 ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}
+          md:translate-x-0 ${isCollapsed ? "w-28" : "w-56"} flex flex-col`}
       >
         {/* Sidebar Toggle Button */}
-        <div className="absolute bottom-10 -right-[17px] w-max">
+        <div className="hidden sm:block absolute bottom-10 -right-[17px] w-max">
           <InventoryBtn
             className="border p-2 rounded-full bg-gray-500 text-white"
             onBtnClick={toggleSidebar}
@@ -77,51 +68,51 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
 
         {/* Navigation */}
         <nav
-          className={`${isCollapsed ? "items-center" : ""
-            } flex flex-col flex-1 px-0 sm:px-3 mt-10 text-black`}
+          className={`${isCollapsed ? "flex" : ""
+            } flex flex-col flex-1 gap-3 text-black`}
         >
-          {!isCollapsed && (
-            <h2 className="px-3 text-gray-400 font-bold">Overview</h2>
-          )}
 
-          <div className="ml-3 py-2">
+          {!isCollapsed}
+          <h2 className={`${isCollapsed ? 'text-[10px] text-gray-400  font-bold' : 'text-lg text-gray-400 font-bold'}`}>Overview</h2>
+
+          <div className="">
             <InventoryLink
               linkTxt="Dashboard"
               linkUrl="/pages/dashboard"
-              icon={<Gauge size={25} />}
+              icon={<Gauge size={20} />}
               isCollapsed={isCollapsed}
               isMobileOpen={isMobileOpen}
             />
           </div>
 
-          <div className="ml-3 py-2">
+          <div className="">
             <InventoryLink
               linkTxt="Analytics"
               linkUrl="/pages/dashboard/analytics"
-              icon={<BarChart size={25} />}
+              icon={<BarChart size={20} />}
               isCollapsed={isCollapsed}
               isMobileOpen={isMobileOpen}
             />
           </div>
 
-          {!isCollapsed && (
-            <h2 className="px-3 text-gray-400 font-bold py-2">Management</h2>
-          )}
+          <h2 className={`${isCollapsed ? 'text-[10px] text-gray-400  font-bold' : 'text-lg text-gray-400 font-bold'}`}>Management</h2>
 
-          <div className="ml-3 py-2">
+          <div className="">
             <InventoryLink
               linkTxt="File"
               linkUrl="/pages/dashboard/file"
-              icon={<File size={25} />}
+              icon={<File size={20} />}
               isCollapsed={isCollapsed}
               isMobileOpen={isMobileOpen}
             />
           </div>
 
-          <div className="ml-3 py-2">
+          {/* User accordian */}
+
+          <div className="this-is-user-accordian-inside-sidebar-component">
             <MyAccordion
               mainTitle="User"
-              icon={<User size={25} />}
+              icon={<User size={20} />}
               isCollapsed={isCollapsed}
               isMobileOpen={isMobileOpen}
               items={[
@@ -149,10 +140,12 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
             />
           </div>
 
-          <div className="ml-3 py-2">
+          {/* Invoices accordian */}
+
+          <div className="">
             <MyAccordion
               mainTitle="Invoice"
-              icon={<File size={25} />}
+              icon={<File size={20} />}
               isCollapsed={isCollapsed}
               isMobileOpen={isMobileOpen}
               items={[
@@ -180,8 +173,8 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
             />
           </div>
 
-          {/* Sign Out */}
-          <div className="ml-3 mt-auto py-4">
+          {/* Sign Out btn*/}
+          <div className="">
             <button
               onClick={() => {
                 setIsSigningOut(true);
@@ -198,7 +191,8 @@ const DashboardSideNav = ({ className, toggleSidebar, isCollapsed }) => {
           </div>
 
         </nav>
-      </div>
+
+      </aside>
 
       {/* Mobile Overlay */}
       {isMobileOpen && (
