@@ -10,11 +10,10 @@ export default function InventoryLink({ linkTxt,
 
       href={linkUrl}
 
-      className={`text-lg  
+      className={`${className} `}>
 
-      ${className}`}>
-
-      <div className={` flex gap-2 ${isCollapsed ? 'flex-col text-sm items-center juc' : ''}`}>
+      <div className={`flex 
+        ${isCollapsed ? 'flex-col  text-sm ' : ''}`}>
         {icon}
         {linkTxt}
       </div>
