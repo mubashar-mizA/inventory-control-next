@@ -20,17 +20,16 @@ const Layout = ({ children }) => {
 
       {/* Main Content */}
       <div
-        className={`flex-1 transition-all duration-300 ${
-          isCollapsed ? "md:ml-28" : "md:ml-56"
-        } w-full`}
+        className={`flex-1 transition-all duration-300 ${isCollapsed ? "md:ml-28" : "md:ml-56"
+          } w-full`}
       >
         {/* Top Navigation */}
-        <div className="sticky top-0 z-20">
+        <div className="sticky top-0 z-20 in-dashboard-layout">
           <DashboardTopNav />
         </div>
 
         {/* Main area with breadcrumbs */}
-        <main className="p-4 md:mt-20">
+        <main className="p-4">
           <InventoryBreadcrumbs />
           {children}
         </main>
